@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>💌 Mis XV Años: Inés Bravo</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --oro-oscuro: #735a08; 
+            --oro-vivo: #c29b00; 
+            --oro-metalico: linear-gradient(135deg, #d4af37 0%, #f9e18e 50%, #b59410 100%);
+            --glass: rgba(255, 255, 255, 0.15); 
+            --glass-border: rgba(255, 255, 255, 0.25);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* --- PORTADA --- */
+        #portada-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 0.8s ease;
+        }
+
+        #portada-wrapper::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('fondo4.png') center/cover no-repeat;
+            z-index: -1;
+        }
+
+        .envelope {
+            position: relative;
+            width: 260px;
+            height: 170px;
+            background: var(--oro-metalico);
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: flotar 3s infinite ease-in-out;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--oro-metalico);
+            clip-path: polygon(0 0, 100% 0, 50% 60%);
+            transform-origin: top;
+            transition: transform 0.8s ease;
+            z-index: 3;
+        }
+
+        #portada-wrapper.open .flap { transform: rotateX(160deg); }
+
+        /* --- SISTEMA DE FONDOS --- */
+        .seccion-full {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            min-height: calc(var(--vh, 1vh) * 100);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .seccion-full::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -1;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        .bg-fondo1::before { background-image: url('fondo1.png'); }
+        .bg-fondo2::before { background-image: url('fondo2.png'); }
+        .bg-fondo4::before { background-image: url('fondo4.png'); }
+        .bg-fondo5::before { background-image: url('fondo5.png'); }
+        .bg-fondo11::before { background-image: url('fondo11.jpg'); }
+        .bg-fondo12::before { background-image: url('fondo12.jpg'); }
+        .bg-fondo20::before { background-image: url('fondo20.png'); }
+         .bg-fondo200::before { background-image: url('moana3.jpg'); }
+  .bg-fondo300::before { background-image: url('moana300.jpg'); }
+        /* --- MARCO PARA LA FOTO --- */
+        .marco-foto {
+            width: 280px;
+            height: 380px;
+            border: 8px solid transparent;
+            border-image: var(--oro-metalico) 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            margin-bottom: 20px;
+        }
+
+        .marco-foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- CONTENEDORES --- */
+       .card-info {
+            width: 100%;
+            max-width: 310px;
+            margin: 10px auto; 
+            background: transparent; 
+            padding: 20px 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            text-align: center;
+        }
+
+        .fecha-top {
+            font-weight: 800; letter-spacing: 4px; font-size: 1rem; color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8); margin-bottom: 5px;
+        }
+
+        .nombre-container h1 {
+            font-family: 'Great Vibes', cursive; font-size: clamp(3.5rem, 14vw, 5.5rem); 
+            color: white; text-shadow: 2px 2px 15px rgba(0,0,0,0.8); line-height: 1;
+            text-align: center;
+        }
+
+        .frase-inicial, .frase-foto {
+            max-width: 290px; margin: 10px auto; font-style: italic; 
+            font-size: 0.95rem; color: white; line-height: 1.5;
+            background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px;
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            text-align: center;
+        }
+
+        .titulo-seccion {
+            font-family: 'Great Vibes', cursive; font-size: 3rem;
+            color: white; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* --- ITINERARIO --- */
+        .itinerario-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            text-align: left;
+            width: 100%;
+        }
+        .itinerario-icon {
+            width: 45px; height: 45px;
+            background: var(--oro-metalico);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: #2c250b; font-size: 1.2rem; flex-shrink: 0;
+        }
+        .itinerario-texto b { color: #f9e18e; display: block; font-size: 0.8rem; }
+        .itinerario-texto span { font-size: 0.95rem; font-weight: 600; }
+
+        /* --- BOTONES --- */
+        .btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 14px; text-decoration: none; border-radius: 50px;
+            font-weight: 700; text-transform: uppercase; font-size: 0.8rem;
+            margin: 8px auto; width: 100%; max-width: 240px;
+            transition: 0.3s;
+        }
+        .btn-oro { background: var(--oro-metalico); color: #2c250b; }
+        .btn-wsap { background: #25d366; color: white; }
+        .btn-music { background: #1DB954; color: white; } /* Verde Spotify */
+        .btn-fotos { background: #f09433; background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); color: white; }
+
+        /* --- COUNTDOWN --- */
+        .countdown-container { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
+        .time-box { 
+            background: var(--oro-metalico); color: #2c250b; width: 65px;
+            padding: 10px 0; border-radius: 10px; font-weight: 800;
+            text-align: center;
+        }
+        .time-box span { display: block; font-size: 1.3rem; }
+        .time-box small { font-size: 0.55rem; text-transform: uppercase; }
+
+        #music-control {
+            position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; 
+            background: var(--oro-metalico); border-radius: 50%; display: none; 
+            justify-content: center; align-items: center; z-index: 1001; color: #2c250b;
+        }
+
+        @keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body>
+
+    <audio id="miMusica" loop><source src="musica.mp3" type="audio/mpeg"></audio>
+
+    <div id="portada-wrapper" onclick="abrirInvitacion()">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div style="position:relative; z-index:1; text-align:center; color:#2c250b;">
+                <h2 style="font-family: 'Great Vibes'; font-size: 2rem;">Inés Bravo</h2>
+                <p style="font-size: 0.6rem; letter-spacing: 2px; font-weight: 800;">TOCA PARA ABRIR</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="music-control" onclick="toggleMusica()">
+        <i id="music-icon" class="fa-solid fa-pause"></i>
+    </div>
+
+    <div id="main-content" style="display:none;">
+        
+        <section class="seccion-full bg-fondo1">
+            <div class="fecha-top">22 . AGOSTO . 2026</div>
+            <div class="nombre-container">
+                <h1>Inés Bravo</h1>
+                <p style="font-family: 'Great Vibes'; font-size: 2.8rem; color: #f9e18e; text-align: center;">Mis 15 Años</p>
+            </div>
+          
+        </section>
+
+        <section class="seccion-full bg-fondo20">
+            <div class="marco-foto">
+                <img src="quince.png" alt="Mía Valentina">
+            </div>
+             <p class="frase-inicial">
+                "Hace 15 años nació una niña llamada Inés, un regalo bendecido por Dios. Hoy celebro el sueño de mis quince años."
+            </p>
+        </section>
+
+        <section class="seccion-full bg-fondo2">
+            <div class="card-info">
+                <p style="font-size: 0.7rem; font-weight: 800; color: #f9e18e; margin-bottom: 8px;">CON LA BENDICIÓN DE MIS PADRES</p>
+                <h3 style="font-family: 'Great Vibes'; font-size: 2rem;">Armando Bravo</h3>
+                <div style="font-size: 1.2rem; margin: 2px;">&</div>
+                <h3 style="font-family: 'Great Vibes'; font-size: 2rem;">Maricela Tuárez</h3>
+            </div>
+            
+           
+        </section>
+          <section class="seccion-full bg-fondo200">
+            <div class="card-info">
+                <p style="font-size: 0.7rem; font-weight: 800; color: #f9e18e; margin-bottom: 8px;">MIS PADRINOS</p>
+                <h3 style="font-family: 'Great Vibes'; font-size: 2rem;">Ramón Murillo</h3>
+                <div style="font-size: 1.2rem; margin: 2px;">&</div>
+                <h3 style="font-family: 'Great Vibes'; font-size: 2rem;">Fátima Tuárez</h3>
+            </div>
+            
+           
+        </section>
+
+        <section class="seccion-full bg-fondo11">
+            
+            <h2 class="titulo-seccion">Itinerario</h2>
+            <div class="card-info">
+                
+                <div class="itinerario-item">
+                    <div class="itinerario-icon"><i class="fa-solid fa-glass-cheers"></i></div>
+                    <div class="itinerario-texto"><b>20:00 PM</b><span>Recepción</span></div>
+                </div>
+                <div class="itinerario-item">
+                    <div class="itinerario-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <div class="itinerario-texto"><b>20:30 PM</b><span>Cena</span></div>
+                </div>
+                <div class="itinerario-item">
+                    <div class="itinerario-icon"><i class="fa-solid fa-music"></i></div>
+                    <div class="itinerario-texto"><b>21:30 PM</b><span>¡Empieza la Fiesta!</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion-full bg-fondo20">
+            <h2 class="titulo-seccion">Ubicación</h2>
+            <div class="card-info">
+                <i class="fa-solid fa-glass-cheers" style="color: #f9e18e; font-size: 1.8rem; margin-bottom: 8px;"></i>
+                <h3 style="font-family: 'Great Vibes'; font-size: 1.8rem;">Fiesta</h3>
+                <p style="font-size: 0.9rem;"><strong>Cancha 
+de Estero Seco</strong><br>20:00 Horas</p>
+                <a href="https://maps.app.goo.gl/SYs1uTjJ6gGw2Txj9" target="_blank" class="btn btn-oro">Ver Mapa</a>
+            </div>
+             <div class="countdown-container">
+                <div class="time-box"><span id="days">00</span><small>Días</small></div>
+                <div class="time-box"><span id="hours">00</span><small>Hrs</small></div>
+                <div class="time-box"><span id="mins">00</span><small>Min</small></div>
+                <div class="time-box"><span id="secs">00</span><small>Seg</small></div>
+            </div>
+        </section>
+   <section class="seccion-full bg-fondo4">
+            <div class="marco-foto">
+                <img src="quince2.jpeg" alt="Mía Valentina">
+            </div>
+            <p class="frase-foto">
+                "Que la alegría de este día guarde un lugar especial en tu corazón, así como tú lo tienes en el mío."
+            </p>
+        </section>
+        <section class="seccion-full bg-fondo12">
+            <h2 class="titulo-seccion">Momentos</h2>
+            <div class="card-info">
+                <p style="margin-bottom: 15px; font-size: 0.9rem; font-weight: 600;">¿Quieres ayudarnos con la fiesta?</p>
+                
+                <a href="https://www.youtube.com/playlist?list=PLMubsocV9du8&jct=yDOFx_uoVoxFosY7kP3YhQ" target="_blank" class="btn btn-music">
+                    <i class="fa-solid fa-music"></i> SUGERIR MÚSICA
+                </a>
+
+                <a href="https://drive.google.com/drive/folders/18b5o-uIqOATO4IV8fSHUbe14jOcuoD_5?usp=sharing" target="_blank" class="btn btn-fotos">
+                    <i class="fa-solid fa-camera"></i> SUBIR MIS FOTOS
+                </a>
+            </div>
+        </section>
+
+        <section class="seccion-full bg-fondo5">
+            <h2 class="titulo-seccion">Asistencia</h2>
+            <div class="card-info">
+                <p style="margin-bottom: 15px; font-size: 0.85rem;">Confirma lo antes posible.</p>
+                <a href="https://wa.me/593964261161?text=Hola! Confirmo mi asistencia para los XV de Inés, Mi nombre es:" target="_blank" class="btn btn-wsap">
+                    <i class="fa-brands fa-whatsapp"></i> CONFIRMAR AQUÍ
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function setVh() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        setVh();
+        window.addEventListener('resize', setVh);
+
+        const audio = document.getElementById('miMusica');
+        const wrapper = document.getElementById('portada-wrapper');
+
+        function abrirInvitacion() {
+            wrapper.classList.add('open');
+            audio.play().catch(() => {});
+            
+            setTimeout(() => {
+                wrapper.style.opacity = '0';
+                setTimeout(() => {
+                    wrapper.style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    document.getElementById('music-control').style.display = 'flex';
+                    confetti({ particleCount: 100, spread: 60, origin: { y: 0.7 }, colors: ['#D4AF37', '#ffffff'] });
+                }, 600);
+            }, 800);
+        }
+
+        function toggleMusica() {
+            const musicIcon = document.getElementById('music-icon');
+            if (audio.paused) { audio.play(); musicIcon.className = 'fa-solid fa-pause'; }
+            else { audio.pause(); musicIcon.className = 'fa-solid fa-play'; }
+        }
+
+        const target = new Date("August 22, 2026 20:00:00").getTime();
+        function update() {
+            const now = new Date().getTime();
+            const diff = target - now;
+            if (diff < 0) return;
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }
+        setInterval(update, 1000); update();
+    </script>
+</body>
+</html>
