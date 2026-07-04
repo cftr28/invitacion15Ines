@@ -107,6 +107,34 @@
          .bg-fondo200::before { background-image: url('moana3.jpg'); }
   .bg-fondo300::before { background-image: url('moana300.jpg'); }
         /* --- MARCO PARA LA FOTO --- */
+        /* --- FOOTER CRÉDITOS --- */
+/* --- FOOTER CRÉDITOS MÁS DISCRETO --- */
+.footer-credits {
+    text-align: center;
+    padding: 10px 10px; /* Reducido de 30px a 15px */
+    background: rgba(0, 0, 0, 0.3); /* Más transparente (0.3 en lugar de 0.6) */
+    color: rgba(255, 255, 255, 0.4); /* Un poco más tenue */
+    font-size: 0.65rem; /* Fuente un poco más pequeña */
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Línea más sutil */
+    margin-top: 10px;
+}
+
+.loja-credits {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
+/* Estilo opcional para que el enlace se vea profesional */
+.footer-credits a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-credits a:hover {
+    color: #c29b00; /* Color oro al pasar el mouse */
+}
         .marco-foto {
             width: 280px;
             height: 380px;
@@ -344,6 +372,15 @@ de Estero Seco</strong><br>20:00 Horas</p>
                 </a>
             </div>
         </section>
+           <footer class="footer-credits">
+    <p class="loja-credits">
+        Realizado por 
+        <a href="https://wa.me/593960934663" target="_blank" style="color: #c29b00; text-decoration: none; font-weight: bold;">
+            Páginas Web Loja
+        </a> 
+        / 0960934663
+    </p>
+</footer>
     </div>
 
     <script>
